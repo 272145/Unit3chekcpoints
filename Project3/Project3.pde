@@ -17,6 +17,7 @@ void setup() {
   size(800, 600);
   background(255);
   spike = loadImage("images.jpg");
+  
 }
 
 void draw() {
@@ -37,17 +38,17 @@ void drawUI() {
   circleButton(color(0, 255, 255), 300, 40, 30);
 
   rectButton(color(180), 400, 20, 80, 40);
-  circleButton(color(180), 520, 40, 40);
+  
 
   fill(0);
   textAlign(CENTER);
-  text("STAMP 1", 440, 75);
-  text("STAMP 2", 520, 75);
+  text("SQUARE", 440, 75);
+  text("SPIKE", 520, 75);
 
   rectButton(color(200), 620, 20, 80, 40);
   fill(0);
   text("NEW", 660, 45);
-
+  image(spike,500,0,100,65);
   drawSlider();
   drawIndicator();
 }
@@ -92,6 +93,18 @@ void mouseDragged() {
     strokeWeight(brushSize);
     line(pmouseX, pmouseY, mouseX, mouseY);
   }
+  if (mouseY > canvasY) {
+    if (stampCircleOn) {
+      fill(currentColor);
+      noStroke();
+      image(spike, mouseX, mouseY,100,100 );
+    }
+    if (stampSquareOn) {
+      fill(currentColor);
+      noStroke();
+      rect(mouseX, mouseY, brushSize * 2, brushSize * 2);
+    }
+  }
 }
 
 void mousePressed() {
@@ -116,18 +129,7 @@ void mousePressed() {
     background(255);
   }
 
-  if (mouseY > canvasY) {
-    if (stampCircleOn) {
-      fill(currentColor);
-      noStroke();
-      image(spike, mouseX-brushSize*1.5, mouseY-brushSize*1.5, brushSize*3, brushSize*3);
-    }
-    if (stampSquareOn) {
-      fill(currentColor);
-      noStroke();
-      rect(mouseX, mouseY, brushSize * 2, brushSize * 2);
-    }
-  }
+  
 }
 
 void circleButton(color c, float x, float y, float r) {
