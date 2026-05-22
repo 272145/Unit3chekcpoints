@@ -1,3 +1,4 @@
+PImage basket;
 PImage spike;
 color currentColor = color(0);
 float brushSize = 5;
@@ -17,14 +18,13 @@ void setup() {
   size(800, 600);
   background(255);
   spike = loadImage("images.jpg");
+  basket = loadImage("images1.jpg");
   
 }
 
-void draw() {
-  drawUI();
-}
 
-void drawUI() {
+
+void draw() {
   strokeWeight(1);
   fill(230);
   noStroke();
@@ -42,13 +42,21 @@ void drawUI() {
 
   fill(0);
   textAlign(CENTER);
-  text("SQUARE", 440, 75);
-  text("SPIKE", 520, 75);
+  text("SQUARE", 440, 80);
+  text("SPIKE", 520, 80);
 
   rectButton(color(200), 620, 20, 80, 40);
   fill(0);
   text("NEW", 660, 45);
   image(spike,500,0,100,65);
+  image(basket,390,0,100,65);
+  fill(0,0,255);
+  rect(100,500,100,30);
+  rect(300,500,100,30);
+  fill(0);
+  textSize(16);
+  text("save",120,520);
+  text("load",320,520);
   drawSlider();
   drawIndicator();
 }
@@ -102,7 +110,7 @@ void mouseDragged() {
     if (stampSquareOn) {
       fill(currentColor);
       noStroke();
-      rect(mouseX, mouseY, brushSize * 2, brushSize * 2);
+      image(basket, mouseX, mouseY,100,100 );
     }
   }
 }
@@ -164,4 +172,12 @@ void checkColorButton(color c, float x, float y, float r) {
 
 boolean overRect(float x, float y, float w, float h) {
   return mouseX > x && mouseX < x + w && mouseY > y && mouseY < y + h;
+}
+void mouseReleased(){
+  if (dist(100,500,mouseX,mouseY)<50){
+    selectInput("save your drawing","saveImage");
+  }
+  if (dist(300,500,mouseX,mouseY)<50){
+    selectInput("load an image","openImage");
+  }
 }
