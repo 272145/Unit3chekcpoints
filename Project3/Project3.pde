@@ -39,19 +39,21 @@ void draw() {
 
   rectButton(color(180), 400, 20, 80, 40);
   
-
+  tactile(440,80,60,30);
   fill(0);
   textAlign(CENTER);
   text("SQUARE", 440, 80);
   text("SPIKE", 520, 80);
-
+  
   rectButton(color(200), 620, 20, 80, 40);
   fill(0);
   text("NEW", 660, 45);
   image(spike,500,0,100,65);
   image(basket,390,0,100,65);
   fill(0,0,255);
+  tactile(100,500,100,30);
   rect(100,500,100,30);
+  tactile(300,500,100,30);
   rect(300,500,100,30);
   fill(0);
   textSize(16);
@@ -173,6 +175,29 @@ void checkColorButton(color c, float x, float y, float r) {
 boolean overRect(float x, float y, float w, float h) {
   return mouseX > x && mouseX < x + w && mouseY > y && mouseY < y + h;
 }
+
+void saveImage(File f)
+{
+  if (f != null)
+  {
+    PImage canvas = get(200, 200, 550, 450);
+    canvas.save(f.getAbsolutePath());
+  }
+}
+
+void openImage(File f)
+{
+  if (f!=null)
+  {
+    int n = 0;
+    while (n<10)
+    {
+      PImage pic = loadImage(f.getPath());
+      image(pic, 0, 0);
+      n++;
+    }
+  }
+}
 void mouseReleased(){
   if (dist(100,500,mouseX,mouseY)<50){
     selectInput("save your drawing","saveImage");
@@ -180,4 +205,19 @@ void mouseReleased(){
   if (dist(300,500,mouseX,mouseY)<50){
     selectInput("load an image","openImage");
   }
-}
+  
+} 
+void tactile(int x, int y, int w, int h)
+ {
+   if(mouseX > x && mouseX < x+w && mouseY > y && mouseY < y+w)
+   {
+     fill(#9B3D3D);
+   }
+   else
+   {
+     fill(#3D9B5E);
+   }
+ }
+  
+  
+  
